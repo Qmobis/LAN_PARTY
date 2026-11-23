@@ -13,8 +13,26 @@
       align-items: center;
       justify-content: center;
       font-family: Tahoma, "Trebuchet MS", Arial, sans-serif;
-      background: linear-gradient(to bottom, #245edb 0%, #3a8cf4 12%, #6fb6ff 48%, #4f9cf0 72%, #245edb 100%);
+      background:
+        linear-gradient(rgba(0, 8, 25, .52), rgba(0, 0, 0, .68)),
+        url("https://images4.alphacoders.com/274/thumb-1920-274278.jpg") center center / cover no-repeat fixed;
+      background-attachment: fixed;
       padding: 25px 15px 60px;
+      position: relative;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: -6%;
+      z-index: -1;
+      background: url("https://images4.alphacoders.com/274/thumb-1920-274278.jpg") center center / cover no-repeat;
+      transform: scale(1.08);
+      filter: saturate(.85) contrast(1.1) brightness(.7);
+      animation: spaceDrift 24s ease-in-out infinite alternate;
+    }
+    @keyframes spaceDrift {
+      from { transform: scale(1.08) translate3d(-1.5%, -1%, 0); }
+      to   { transform: scale(1.13) translate3d(1.5%, 1%, 0); }
     }
     body::after {
       content: "";
