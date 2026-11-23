@@ -81,9 +81,45 @@
       box-shadow: inset 2px 2px 3px #999;
       transform: translateY(1px);
     }
+  
+    .login-overlay {
+      position: fixed; inset: 0; z-index: 9999; display: flex; align-items: center; justify-content: center;
+      background: rgba(0, 5, 15, .9); backdrop-filter: blur(7px);
+    }
+    .login-panel {
+      width: min(390px, 90vw); padding: 24px; text-align: center; color: #bdeaff;
+      background: linear-gradient(145deg, rgba(4,18,35,.97), rgba(8,38,62,.97));
+      border: 1px solid #55cfff; border-radius: 10px;
+      box-shadow: 0 0 18px rgba(62,201,255,.65), inset 0 0 25px rgba(20,111,160,.28);
+    }
+    .login-panel h1 { margin: 0 0 5px; font-size: 24px; letter-spacing: 3px; color: #e3f8ff; text-shadow: 0 0 8px #39bfff; }
+    .login-panel p { margin: 0 0 20px; font-size: 12px; color: #77cde9; letter-spacing: 2px; }
+    .login-panel input {
+      width: 100%; margin: 6px 0; padding: 10px 12px; color: #d9f7ff; background: #020b14;
+      border: 1px solid #267ca1; border-radius: 4px; outline: none; font-family: Tahoma, Arial, sans-serif;
+    }
+    .login-panel input:focus { border-color: #67d8ff; box-shadow: 0 0 7px rgba(77,211,255,.55); }
+    .login-button {
+      width: 100%; margin-top: 12px; padding: 10px; cursor: pointer; font-weight: bold; letter-spacing: 1px;
+      color: #dff8ff; background: linear-gradient(#176b91, #073852); border: 1px solid #5ed6ff; border-radius: 4px;
+    }
+    .login-button:hover { background: linear-gradient(#218bb8, #0a4969); }
+    .login-error { height: 18px; margin-top: 10px; color: #ff6b6b; font-size: 12px; }
+    .site-content.locked { visibility: hidden; }
   </style>
 </head>
 <body>
+  <div class="login-overlay" id="loginOverlay">
+    <form class="login-panel" id="loginForm">
+      <h1>LAN PARTY</h1>
+      <p>SECURE TERRAN NETWORK</p>
+      <input id="loginName" type="text" autocomplete="username" placeholder="LOGIN" autofocus>
+      <input id="loginPassword" type="password" autocomplete="current-password" placeholder="PASSWORD">
+      <button class="login-button" type="submit">AUTHENTICATE</button>
+      <div class="login-error" id="loginError"></div>
+    </form>
+  </div>
+  <div class="site-content locked" id="siteContent">
   <main class="content">
     <div class="gif-frame gif-top">
       <iframe src="https://giphy.com/embed/rRxOR2sKBzDJ6" allowfullscreen title="GIPHY animation"></iframe>
@@ -95,5 +131,31 @@
       <iframe src="https://giphy.com/embed/xUPGcuHQiGu7XF2N9K" allowfullscreen title="StarCraft Brood War GIPHY animation"></iframe>
     </div>
   </main>
+  </div>
+  <script>
+    const overlay = document.getElementById('loginOverlay');
+    const content = document.getElementById('siteContent');
+    const form = document.getElementById('loginForm');
+    const error = document.getElementById('loginError');
+
+    if (sessionStorage.getItem('lanPartyAccess') === 'granted') {
+      overlay.style.display = 'none';
+      content.classList.remove('locked');
+    }
+
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      const login = document.getElementById('loginName').value;
+      const password = document.getElementById('loginPassword').value;
+      if (login === 'lan' && password === 'party') {
+        sessionStorage.setItem('lanPartyAccess', 'granted');
+        overlay.style.display = 'none';
+        content.classList.remove('locked');
+      } else {
+        error.textContent = 'ACCESS DENIED';
+        document.getElementById('loginPassword').value = '';
+      }
+    });
+  </script>
 </body>
 </html>
