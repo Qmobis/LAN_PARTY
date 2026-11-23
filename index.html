@@ -52,12 +52,16 @@
     }
     .gif-top { aspect-ratio: 100 / 43; }
     .gif-bottom { aspect-ratio: 2 / 1; }
-    .gif-frame iframe {
+    .gif-frame iframe,
+    .gif-frame img {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
       border: 0;
+      object-fit: cover;
+      pointer-events: none;
+      user-select: none;
     }
     .xp-button {
       min-width: 210px;
@@ -122,13 +126,13 @@
   <div class="site-content locked" id="siteContent">
   <main class="content">
     <div class="gif-frame gif-top">
-      <iframe src="https://giphy.com/embed/rRxOR2sKBzDJ6" allowfullscreen title="GIPHY animation"></iframe>
+      <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExNGMzaWNxc2x0ZmtkNzlkMWxpMXE4Z3hxcDVkNGpkY3ZhY2R6a3VwdiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/rRxOR2sKBzDJ6/giphy.gif" alt="">
     </div>
 
     <button class="xp-button" type="button">FILES YOU NEED</button>
 
     <div class="gif-frame gif-bottom">
-      <iframe src="https://giphy.com/embed/xUPGcuHQiGu7XF2N9K" allowfullscreen title="StarCraft Brood War GIPHY animation"></iframe>
+      <img src="https://media.giphy.com/media/xUPGcuHQiGu7XF2N9K/giphy.gif" alt="">
     </div>
   </main>
   </div>
